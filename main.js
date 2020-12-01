@@ -1,58 +1,76 @@
+// Performing a GET Request
+
 function performGetRequest1() {
-    var resultElement = document.getElementById('getResult1');
-    resultElement.innerHTML = '';
-    
-    axios.get('http://jsonplaceholder.typicode.com/todos')
-      .then(function (response) {
-        resultElement.innerHTML = generateSuccessHTMLOutput(response);
-      })
-      .catch(function (error) {
-        resultElement.innerHTML = generateErrorHTMLOutput(error);
-      });   
-  }
-
-  function generateSuccessHTMLOutput(response) {
-    return  '<h4>Result</h4>' + 
-            '<h5>Status:</h5> ' + 
-            '<pre>' + response.status + ' ' + response.statusText + '</pre>' +
-            '<h5>Headers:</h5>' + 
-            '<pre>' + JSON.stringify(response.headers, null, '\t') + '</pre>' + 
-            '<h5>Data:</h5>' + 
-            '<pre>' + JSON.stringify(response.data, null, '\t') + '</pre>'; 
-  }
-  function generateErrorHTMLOutput(error) {
-    return  '<h4>Result</h4>' + 
-            '<h5>Message:</h5> ' + 
-            '<pre>' + error.message + '</pre>' +
-            '<h5>Status:</h5> ' + 
-            '<pre>' + error.response.status + ' ' + error.response.statusText + '</pre>' +
-            '<h5>Headers:</h5>' + 
-            '<pre>' + JSON.stringify(error.response.headers, null, '\t') + '</pre>' + 
-            '<h5>Data:</h5>' + 
-            '<pre>' + JSON.stringify(error.response.data, null, '\t') + '</pre>'; 
-  }
-
-  function performGetRequest2() {
-    var resultElement = document.getElementById('getResult2');
-    var todoId = document.getElementById('todoId').value;
-    resultElement.innerHTML = '';
-    
-    axios.get('http://jsonplaceholder.typicode.com/todos', {
-      params: {
-        id: todoId
-      }
-    })
+  var resultElement = document.getElementById('getResult1');
+  resultElement.innerHTML = '';
+  
+  axios.get('http://jsonplaceholder.typicode.com/todos')
     .then(function (response) {
-      console.log(response);
       resultElement.innerHTML = generateSuccessHTMLOutput(response);
     })
     .catch(function (error) {
-        resultElement.innerHTML = generateErrorHTMLOutput(error);
-    });
-  }
+      resultElement.innerHTML = generateErrorHTMLOutput(error);
+    });   
+}
+
+function generateSuccessHTMLOutput(response) {
+  return  '<h4>Result</h4>' + 
+          '<h5>Status:</h5> ' + 
+          '<pre>' + response.status + ' ' + response.statusText + '</pre>' +
+          '<h5>Headers:</h5>' + 
+          '<pre>' + JSON.stringify(response.headers, null, '\t') + '</pre>' + 
+          '<h5>Data:</h5>' + 
+          '<pre>' + JSON.stringify(response.data, null, '\t') + '</pre>'; 
+}
 
 
-  document.getElementById('todoInputForm').addEventListener('submit', performPostRequest);
+function generateErrorHTMLOutput(error) {
+  return  '<h4>Result</h4>' + 
+          '<h5>Message:</h5> ' + 
+          '<pre>' + error.message + '</pre>' +
+          '<h5>Status:</h5> ' + 
+          '<pre>' + error.response.status + ' ' + error.response.statusText + '</pre>' +
+          '<h5>Headers:</h5>' + 
+          '<pre>' + JSON.stringify(error.response.headers, null, '\t') + '</pre>' + 
+          '<h5>Data:</h5>' + 
+          '<pre>' + JSON.stringify(error.response.data, null, '\t') + '</pre>'; 
+}
+
+const clearOutput = () => {
+  var resultElement = document.getElementById('getResult1');
+  resultElement.innerHTML = '';
+
+  var resultElement2 = document.getElementById('getResult2');
+  resultElement2.innerHTML = '';
+
+  var resultElement3 = document.getElementById('postResult');
+  resultElement3.innerHTML = '';
+}
+
+// Performing A GET Request with Parameter
+
+function performGetRequest2() {
+  var resultElement = document.getElementById('getResult2');
+  var todoId = document.getElementById('todoId').value;
+  resultElement.innerHTML = '';
+  
+  axios.get('http://jsonplaceholder.typicode.com/todos', {
+    params: {
+      id: todoId
+    }
+  })
+  .then(function (response) {
+    console.log(response);
+    resultElement.innerHTML = generateSuccessHTMLOutput(response);
+  })
+  .catch(function (error) {
+      resultElement.innerHTML = generateErrorHTMLOutput(error);
+  });
+}
+
+// Performing A POST Request
+
+document.getElementById('todoInputForm').addEventListener('submit', performPostRequest);
 function performPostRequest(e) {
   var resultElement = document.getElementById('postResult');
   var todoTitle = document.getElementById('todoTitle').value;
@@ -72,3 +90,4 @@ function performPostRequest(e) {
   
   e.preventDefault();
 }
+
